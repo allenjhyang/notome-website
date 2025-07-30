@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NotoMe - Send an email to yourself with a swipe</title>
+    <link rel="icon" type="image/png" href="notome_favicon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #134BC5;
+            color: white;
+            line-height: 1.6;
+        }
+
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+
+        a:hover {
+            opacity: 0.8;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+            text-align: center;
+        }
+
+        .header {
+            margin-bottom: 60px;
+        }
+
+        h1 {
+            font-size: 4rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .subheading {
+            font-size: 1.5rem;
+            font-weight: 300;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+
+        .app-store-button {
+            display: inline-block;
+            margin-bottom: 60px;
+            transition: transform 0.2s ease;
+        }
+
+        .app-store-button:hover {
+            transform: scale(1.05);
+        }
+
+        .app-store-button img {
+            height: 60px;
+            width: auto;
+        }
+
+        .screenshots {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 80px;
+            flex-wrap: wrap;
+        }
+
+        .screenshot {
+            width: 253px;
+            /* 1015/4 for responsive scaling */
+            height: 507px;
+            /* 2028/4 for responsive scaling */
+            object-fit: cover;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .screenshot:hover {
+            transform: scale(1.05);
+        }
+
+        .legal-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .legal-item {
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .legal-header {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .legal-header:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .legal-header h3 {
+            font-size: 1.3rem;
+            font-weight: 500;
+        }
+
+        .legal-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 0 0 10px 10px;
+        }
+
+        .legal-content.active {
+            max-height: 1000px;
+        }
+
+        .legal-content p {
+            padding: 20px;
+            text-align: left;
+            font-size: 0.95rem;
+            line-height: 1.7;
+        }
+
+        .toggle-icon {
+            font-size: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-icon.active {
+            transform: rotate(180deg);
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .subheading {
+                font-size: 1.2rem;
+            }
+
+            .screenshots {
+                gap: 15px;
+            }
+
+            .screenshot {
+                width: 200px;
+                height: 400px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>NōtoMe</h1>
+            <p class="subheading">Send an email to yourself with a swipe</p>
+        </div>
+
+        <div class="app-store-button">
+            <a href="https://apps.apple.com/us/app/n%C5%8Dtome-note-to-self/id1668929539" id="app-store-link" target="_blank">
+                <img src="https://developer.apple.com/app-store/marketing/guidelines/images/badge-download-on-the-app-store.svg" alt="Download on the App Store">
+            </a>
+        </div>
+
+        <div class="screenshots">
+            <img src="screenshot_1.png" alt="NotoMe App Screenshot 1" class="screenshot">
+            <img src="screenshot_2.png" alt="NotoMe App Screenshot 2" class="screenshot">
+            <img src="screenshot_3.png" alt="NotoMe App Screenshot 3" class="screenshot">
+        </div>
+
+        <div class="legal-section">
+            <div class="legal-item">
+                <div class="legal-header" onclick="toggleLegal('eula')">
+                    <h3>End User License Agreement (EULA)</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="legal-content" id="eula-content">
+                    <p>
+                        Please see the <a href="https://www.apple.com/legal/internet-services/itunes/dev/stdeula/">standard Apple EULA</a>.
+                    </p>
+                </div>
+            </div>
+
+            <div class="legal-item">
+                <div class="legal-header" onclick="toggleLegal('privacy')">
+                    <h3>Privacy Policy</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="legal-content" id="privacy-content">
+                    <p>
+                        NōtoMe does not store the contents or subject lines of emails you send. We do have logs of the metadata of each email - including the recipient email address - for analytics and anti-spam purposes.
+                        <br />
+                        <br />
+                        You do have to create an account with an email address to use NōtoMe. Currently, no payments are handled and the app is free to use, though we reserve the right to change this in the future.
+                        <br />
+                        <br />
+                        NōtoMe will not sell your contact information.
+                        <br />
+                        <br />
+                        If you have questions about this Privacy Policy, please contact us at dev [at] apotheonlabs.com.
+                    </p>
+                </div>
+            </div>
+
+            <div class="legal-item">
+                <div class="legal-header" onclick="toggleLegal('about')">
+                    <h3>About NōtoMe</h3>
+                    <span class="toggle-icon">▼</span>
+                </div>
+                <div class="legal-content" id="about-content">
+                    <p>
+                        NōtoMe is a passion project meant to bring a fun, little boost of productive happiness with each use. It was inspired by a precursor app, Noto, which was made within a group called the LAC.
+                        <br />
+                        <br />
+                        The app is currently free to use and supported by the creator. If you have any feature requests or feedback, feel free to shoot an email to dev [at] apotheonlabs.com.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleLegal(section) {
+            const content = document.getElementById(section + '-content');
+            const icon = content.previousElementSibling.querySelector('.toggle-icon');
+
+            content.classList.toggle('active');
+            icon.classList.toggle('active');
+        }
+
+        // Update App Store link when you have the actual URL
+        // document.getElementById('app-store-link').addEventListener('click', function (e) {
+        //     e.preventDefault();
+        //     alert('Please update the App Store link with your actual App Store URL');
+        // });
+    </script>
+</body>
+
+</html>
